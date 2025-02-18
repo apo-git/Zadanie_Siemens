@@ -20,4 +20,4 @@
 4. Pouzit len standardne datove typy. Nema obsahovat kniznice/ datove typy, ktore vedia pracovat s velkymi cislami
 5. Napisat testy, ktore overia, ze funkcie/metody funguju spravne
 
-![image](Numbers.png = 200x100)
+![image](Numbers.png "Title)
