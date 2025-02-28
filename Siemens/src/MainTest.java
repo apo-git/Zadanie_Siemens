@@ -55,4 +55,23 @@ public class MainTest {
         assertEquals(length + 1, number.length(), "Tested string should have proper length (of 51 because of '-'");
         assertTrue(number.substring(1).matches("[1-9][0-9]*"), "Tested string should be valid with first letter in range 0-9 and other letters in range 1-9");
     }
+
+    @Test
+    void testCompare() {
+        assertTrue(Main.compare("713", "714") < 0);
+        assertTrue(Main.compare("714", "713") > 0);
+        assertTrue(Main.compare("7142", "714") > 0);
+        assertTrue(Main.compare("714", "7142") < 0);
+        assertEquals(0, Main.compare("0", "0"));
+    }
+
+    @Test
+    public void testAddPositive() {
+        assertEquals("960", Main.addPositive("856", "104"));
+        assertEquals("912435778110", Main.addPositive("912312321321", "123456789"));
+        assertEquals("0", Main.addPositive("0", "0"));
+        assertEquals("5", Main.addPositive("5", "0"));
+        assertEquals("5", Main.addPositive("0", "5"));
+        assertEquals("444", Main.addPositive("123", "321"));
+    }
 }
