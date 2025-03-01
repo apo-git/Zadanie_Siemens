@@ -83,5 +83,14 @@ public class MainTest {
         assertEquals("569", Main.subtractDifferentValues("901", "332"));
     }
 
-    // add one more test
+    @Test
+    public void testAddOrSubtractString() {
+        assertEquals("0", Main.addOrSubtractString("123", "-123"));
+        assertEquals("198", Main.addOrSubtractString("321", "-123"));
+        assertEquals("-198", Main.addOrSubtractString("-321", "123"));
+        assertEquals("-444", Main.addOrSubtractString("-321", "-123"));
+        assertEquals("246", Main.addOrSubtractString("123", "123"));
+        assertEquals("4900", Main.addOrSubtractString("5000", "-100"));
+        assertEquals("-4900", Main.addOrSubtractString("-5000", "100"));
+    }
 }

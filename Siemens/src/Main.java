@@ -86,10 +86,11 @@ public class Main {
             if (subHelp == 0) {
                 return "0";
             } else if (subHelp > 0) {
-                // add comment here
+                // if subHelp is greater than zero, we know that first number is bigger (if first number "absolute1" which is bigger is negative, then final number is going to be negative, otherwise positive)
                 if (negative1 == 1) return '-' + subtractDifferentValues(absolute1, absolute2);
                 else return subtractDifferentValues(absolute1, absolute2);
             } else {
+                // if subHelp is lower than zero, we know that second number is bigger (if first number "absolute2" which is bigger is negative, then final number is going to be negative, otherwise positive)
                 if (negative2 == 1) return '-' + subtractDifferentValues(absolute2, absolute1);
                 else return subtractDifferentValues(absolute2, absolute1);
             }
@@ -125,6 +126,7 @@ public class Main {
         return subHelp;
     }
 
+    // When both numbers are either positive or negative we use this method to compute their value
     public static String addSameValue(String absolute1, String absolute2) {
         // max possible positions of numbers set here
         int position1 = absolute1.length() - 1;
@@ -164,22 +166,30 @@ public class Main {
         return new String(result, positionFinal, size - positionFinal);
     }
 
-    // comment this function
+    // if one of the numbers is negative and second one is positive we will use this method to subtract smaller number from bigger
     static String subtractDifferentValues(String absolute1, String absolute2) {
+        // max possible positions of numbers set here
         int position1 = absolute1.length() - 1;
         int position2 = absolute2.length() - 1;
+        // we will use shift to store number
         int shift = 0;
+        // maxsize cannot get bigger than length of absolute1
         int size = absolute1.length();
+        // set result as array of chars, which will store evaluation of two numbers
         char[] result = new char[size];
         int positionFinal = size - 1;
 
+        // while there are still indexes (of number "absolute1" which is always bigger (that's why we need to only check this one) and equal sign is there because we still can have one more borrowed sign
         while (position1 >= 0) {
+            // value at position1 stored in x
             int x = absolute1.charAt(position1) - '0';
             int y = 0;
+            // when we count all indexes of position2 we want to set y to 0 otherwise value at position2
             if (position2 >= 0) y = absolute2.charAt(position2) - '0';
-
+            // subtracting borrowed number
             x = x - shift;
 
+            // computing if we need to borrow number
             if (x < y) {
                 x = x + 10;
                 shift = 1;
@@ -187,12 +197,14 @@ public class Main {
                 shift = 0;
             }
 
+            // computing numbers at positionFinal index
             result[positionFinal] = (char) ('0' + (x - y));
             positionFinal--;
             position1--;
             position2--;
         }
 
+        // we need to get rid of zeroes before number starts
         int countZero = 0;
 
         while (result[countZero] == '0') {
