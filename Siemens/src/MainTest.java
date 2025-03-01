@@ -66,12 +66,22 @@ public class MainTest {
     }
 
     @Test
-    public void testAddPositive() {
-        assertEquals("960", Main.addPositive("856", "104"));
-        assertEquals("912435778110", Main.addPositive("912312321321", "123456789"));
-        assertEquals("0", Main.addPositive("0", "0"));
-        assertEquals("5", Main.addPositive("5", "0"));
-        assertEquals("5", Main.addPositive("0", "5"));
-        assertEquals("444", Main.addPositive("123", "321"));
+    public void testAddSameValue() {
+        assertEquals("960", Main.addSameValue("856", "104"));
+        assertEquals("912435778110", Main.addSameValue("912312321321", "123456789"));
+        assertEquals("0", Main.addSameValue("0", "0"));
+        assertEquals("5", Main.addSameValue("5", "0"));
+        assertEquals("5", Main.addSameValue("0", "5"));
+        assertEquals("444", Main.addSameValue("123", "321"));
     }
+
+    @Test
+    public void testSubtractDifferentValue() {
+        assertEquals("752", Main.subtractDifferentValues("856", "104"));
+        assertEquals("879369", Main.subtractDifferentValues("912312", "32943"));
+        assertEquals("5", Main.subtractDifferentValues("5", "0"));
+        assertEquals("569", Main.subtractDifferentValues("901", "332"));
+    }
+
+    // add one more test
 }

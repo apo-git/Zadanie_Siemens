@@ -4,14 +4,20 @@ public class Main {
     public static void main(String[] args) {
         Random random = new Random();
 
+        String sum = "0";
+
         // we generate 50 random numbers which are either positive or negative
         for (int length = 1; length <= 50; length++) {
             boolean isNegative = random.nextInt(2) == 1;
 
             String number = generateRandomNumbers(length, isNegative, random);
-
-            System.out.println(number);
+            sum = addOrSubtractString(sum, number);
         }
+
+        int length = sum.length();
+
+        if (length < 10) System.out.println(sum);
+        else System.out.println(sum.substring(0, 10));
     }
 
     public static String generateRandomNumbers(int length, boolean isNegative, Random random) {
@@ -44,7 +50,7 @@ public class Main {
     }
 
     // decision-making if both numbers are '+' or '-', or one is '+' and second '-' (using correct method according to that)
-    public static String addOrSubstractString(String number1, String number2) {
+    public static String addOrSubtractString(String number1, String number2) {
         int negative1 = 0;
         int negative2 = 0;
 
@@ -67,10 +73,10 @@ public class Main {
 
         // if both numbers are negative we can add them together and at the end return '-' appended to new num
         if (number1.charAt(0) == '-' && number2.charAt(0) == '-') {
-            return '-' + addPositive(absolute1, absolute2);
+            return '-' + addSameValue(absolute1, absolute2);
             // if both numbers are positive we will just add them together and at the end return new num
         } else if (number1.charAt(0) != '-' && number2.charAt(0) != '-') {
-            return addPositive(absolute1, absolute2);
+            return addSameValue(absolute1, absolute2);
         } else {
             // otherwise we know only one number is negative so we need another method to use for that
             // first of all we need to find out which number is bigger of the comparing numbers
@@ -80,11 +86,12 @@ public class Main {
             if (subHelp == 0) {
                 return "0";
             } else if (subHelp > 0) {
-                return "sub(a,b)"; // repair this part of code
-                // need implementation
+                // add comment here
+                if (negative1 == 1) return '-' + subtractDifferentValues(absolute1, absolute2);
+                else return subtractDifferentValues(absolute1, absolute2);
             } else {
-                return "sub(b,a)"; // repair this part of code
-                // need implementation
+                if (negative2 == 1) return '-' + subtractDifferentValues(absolute2, absolute1);
+                else return subtractDifferentValues(absolute2, absolute1);
             }
         }
     }
@@ -118,7 +125,7 @@ public class Main {
         return subHelp;
     }
 
-    public static String addPositive(String absolute1, String absolute2) {
+    public static String addSameValue(String absolute1, String absolute2) {
         // max possible positions of numbers set here
         int position1 = absolute1.length() - 1;
         int position2 = absolute2.length() - 1;
@@ -155,5 +162,43 @@ public class Main {
         positionFinal++;
 
         return new String(result, positionFinal, size - positionFinal);
+    }
+
+    // comment this function
+    static String subtractDifferentValues(String absolute1, String absolute2) {
+        int position1 = absolute1.length() - 1;
+        int position2 = absolute2.length() - 1;
+        int shift = 0;
+        int size = absolute1.length();
+        char[] result = new char[size];
+        int positionFinal = size - 1;
+
+        while (position1 >= 0) {
+            int x = absolute1.charAt(position1) - '0';
+            int y = 0;
+            if (position2 >= 0) y = absolute2.charAt(position2) - '0';
+
+            x = x - shift;
+
+            if (x < y) {
+                x = x + 10;
+                shift = 1;
+            } else {
+                shift = 0;
+            }
+
+            result[positionFinal] = (char) ('0' + (x - y));
+            positionFinal--;
+            position1--;
+            position2--;
+        }
+
+        int countZero = 0;
+
+        while (result[countZero] == '0') {
+            countZero++;
+        }
+
+        return new String(result, countZero, size - countZero);
     }
 }
