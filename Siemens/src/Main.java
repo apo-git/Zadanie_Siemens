@@ -14,10 +14,14 @@ public class Main {
             sum = addOrSubtractString(sum, number);
         }
 
-        int length = sum.length();
-
-        if (length < 10) System.out.println(sum);
-        else System.out.println(sum.substring(0, 10));
+        if (sum.startsWith("-") && sum.length() >= 11) {
+            System.out.println(sum.substring(0,11));
+        } else if (sum.startsWith("-") && sum.length() < 11) {
+            System.out.println(sum);
+        } else {
+            if (sum.length() < 10) System.out.println(sum);
+            else System.out.println(sum.substring(0, 10));
+        }
     }
 
     public static String generateRandomNumbers(int length, boolean isNegative, Random random) {
